@@ -8,7 +8,7 @@ window.addEventListener('load', function(){
     });
     
 
-    var startButton =   document.querySelector('.start-button');
+    var startButton = document.querySelector('.start-button');
     startButton.addEventListener('click', function(){
         selectUser(selectedUserId);
     });
@@ -19,13 +19,13 @@ window.addEventListener('load', function(){
             headers: {
                 'Content-type': 'application/x-www-form-urlencoded'
             },
-            body: `userId=${selectedUserId}`,
+            body: `id=${selectedUserId}`,
         }).then(function(response){
-            return response.text();
+            return response.json();
         }).catch(function(err){
             console.error(err);
-        }).then(function(message){
-            console.log(message);
+        }).then(function(response){
+            console.log(response);
             goToAdidasExperience();
         });
     }

@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const hbs = require('express-handlebars');
 const MongoClient = require('mongodb').MongoClient;
 const client = new MongoClient(URL, {useUnifiedTopology: true});
+const ObjectId = require('mongodb').ObjectID;
 
 const app = express();
 var database = null;
@@ -39,7 +40,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 //#region VARIABLES GLOBALES
-var selectedUser;
+var selectedUser = null;
 //#endregion
 
 //#region RUTAS GET
@@ -103,13 +104,17 @@ app.get('/user-selection', function(request, response) {
         }
         
         response.render('user-selection', context);
+        // response.json(context);
     });
 });
 
 //Experiencia Adidas
 app.get('/adidas-experience', function(request, response) {
-    var context = {
-        userId: selectedUser,
+
+    if(selectedUser != null) {
+        var context = {
+            name: selectedUser.name,
+        }
     }
 
     response.render('adidas-experience', context);
@@ -134,9 +139,21 @@ app.get('/item', function(request, response) {
 //#region RUTAS POST
 // Seleccionar usuario
 app.post('/api/selectUser', function(request, response){
-    let userId = request.body.userId;
-    selectedUser = userId;
+    let userId = request.body.id;
+    let mongoUserID = new ObjectId(userId);;
 
-    response.send(selectedUser);
+    const collection = database.collection('users');
+    collection.find({
+        _id: { $eq: mongoUserID},
+    }).toArray(function (err, docs) {
+        if(err) {
+            console.error(err);
+            response.send(err);
+            return;
+        }
+        
+        selectedUser = docs[0];
+        response.send(selectedUser);
+    });
 });
 //#endregion
