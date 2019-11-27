@@ -9,6 +9,14 @@
 
 <body>
     <h1>Escoge un Usuario</h1>
+    <select name="users-list" class="users-dropdown">
+        {{#each users}}
+            <option value={{_id}}>{{name}}</option>
+        {{/each}}
+    </select>
+    <button class="start-button">GO</button>
+
+    <script src="/scripts/user-selection.js"></script>
 </body>
 
 </html>
