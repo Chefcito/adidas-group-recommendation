@@ -31,6 +31,7 @@ app.engine('handlebars', HBS({
 app.set('view engine', 'handlebars');
 
 //#region RUTAS GET
+//Home
 app.get('/', function(request, response) {
 
     CLIENT.connect(function(err) {
@@ -58,6 +59,31 @@ app.get('/', function(request, response) {
         });
     });
 }); 
+
+//Selección de Usuario
+app.get('/user-selection', function(request, response) {
+    response.render('user-selection');
+});
+
+//Experiencia Adidas
+app.get('/adidas-experience', function(request, response) {
+    response.render('adidas-experience');
+});
+
+//Recomendación Grupal
+app.get('/group-recommendation', function(request, response) {
+    response.render('group-recommendation');
+});
+
+//Colección
+app.get('/collection', function(request, response) {
+    response.render('collection');
+});
+
+//Item
+app.get('/item', function(request, response) {
+    response.render('item');
+});
 //#endregion
 
 app.listen(PORT, function() {
