@@ -40,8 +40,39 @@ app.use(bodyParser.urlencoded({
 }));
 
 //#region VARIABLES GLOBALES
-var selectedUser = null;
+var selectedUser = {
+    name: 'Calex Rodriguez',
+    gender: 'male',
+    ratings: 
+    {
+        material_cotton: 9,
+        material_lycra: 9,
+        material_wool: 5,
+        material_flannel: 5,
+        material_lace: 0,
+        material_linen: 1,
+        material_silk: 2,
+        sleeve_long: 9,
+        sleeve_short: 7,
+        waterproof: 9,
+        stripes_horizontal: 7,
+        stripes_vertical: 6,
+        stripes_diagonal: 3,
+        pattern_square: 0,
+        pattern_circle: 0,
+        pattern_spots: 0,
+        pattern_none: 10,
+        color_yellow: 0,
+        color_blue: 5,
+        color_red: 10,
+    }
+};
 //#endregion
+
+
+
+
+
 
 //#region RUTAS GET
 //Home
@@ -104,7 +135,6 @@ app.get('/user-selection', function(request, response) {
         }
         
         response.render('user-selection', context);
-        // response.json(context);
     });
 });
 
@@ -112,12 +142,21 @@ app.get('/user-selection', function(request, response) {
 app.get('/adidas-experience', function(request, response) {
 
     if(selectedUser != null) {
-        var context = {
-            name: selectedUser.name,
-        }
-    }
+        const collection = database.collection('users');
+        collection.find({}).toArray(function(err, docs) {
+            if(err) {
+                console.error(err);
+                response.send(err);
+                return;
+            }
+    
+            var context = {
+                name: selectedUser.name,
+            }
 
-    response.render('adidas-experience', context);
+            response.render('adidas-experience', context);
+        });
+    }
 });
 
 //Recomendación Grupal
