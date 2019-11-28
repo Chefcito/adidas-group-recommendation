@@ -30,7 +30,7 @@
         </ul>
     </nav>
 
-    <h2 class="title">La mejor elección para ti</h3>
+    <h2 class="title">Hola {{selectedUser.name}}, esta es tu camisa ideal</h3>
 
     <div class="container-fluid">
         <div class="t-shirt">
@@ -40,13 +40,13 @@
                 </div>
                 <div class="t-shirt__container__info" class="col-8">
                     <h4 class="t-shirt__container__info__title">Colores</h4>
-                    <p class="t-shirt__container__info__body"><strong>Principal: </strong>Amarillo</p>
-                    <p class="t-shirt__container__info__body"><strong>Secundario: </strong>Rojo</p>
+                    <p class="t-shirt__container__info__body"><strong>Principal: </strong>{{favoriteShirt.main_color}}</p>
+                    <p class="t-shirt__container__info__body"><strong>Secundario: </strong>{{favoriteShirt.secondary_color}}</p>
                     <hr>
                     <h4 class="t-shirt__container__info__title">Diseño</h4>
-                    <p class="t-shirt__container__info__body"><strong>Patrón: </strong>Manchas</p>
-                    <p class="t-shirt__container__info__body"><strong>Tipo de tela: </strong>Franela</p>
-                    <p class="t-shirt__container__info__body"><strong>Manga larga: </strong>Si</p>
+                    <p class="t-shirt__container__info__body"><strong>Patrón: </strong>{{favoriteShirt.pattern}}</p>
+                    <p class="t-shirt__container__info__body"><strong>Material: </strong>{{favoriteShirt.material}}</p>
+                    <p class="t-shirt__container__info__body"><strong>Manga larga: </strong>{{favoriteShirt.long_sleeve}}</p>
                 </div>
             </div>
         </div>

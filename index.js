@@ -74,6 +74,7 @@ var kVal2;
 
 var users = [];
 var shirts = [];
+var alternatives = [];
 //#endregion
 
 //#region IMPLEMENTACIÓN DE LOS ALGORITMOS
@@ -177,6 +178,73 @@ function bordaCount(selected, neighbors) {
 //#endregion
 
 //#region FUNCIONES
+function createShirt(shirt) {
+    let tempShirt = {};
+    tempShirt.name = shirt.name;
+    tempShirt.gender = shirt.gender;
+
+    for(let i = 0; i < Object.keys(shirt.ratings).length; i++) {
+        if(shirt.ratings[Object.keys(shirt.ratings)[i]] > 9) {
+            if(Object.keys(shirt.ratings)[i] == "Algodon" 
+            || Object.keys(shirt.ratings)[i] == "Licra" 
+            || Object.keys(shirt.ratings)[i] == "Lana" 
+            || Object.keys(shirt.ratings)[i] == "Franela" 
+            || Object.keys(shirt.ratings)[i] == "Encaje" 
+            || Object.keys(shirt.ratings)[i] == "Lino" 
+            || Object.keys(shirt.ratings)[i] == "Seda") {
+                tempShirt.material = Object.keys(shirt.ratings)[i];
+            }
+        }
+
+        if(shirt.ratings[Object.keys(shirt.ratings)[i]] > 9) {
+            if(Object.keys(shirt.ratings)[i] == "Larga") {
+                tempShirt.long_sleeve = "Si";
+            } else {
+                tempShirt.long_sleeve = "No";
+            }
+        }
+
+        if(shirt.ratings[Object.keys(shirt.ratings)[i]] > 9) {
+            if(Object.keys(shirt.ratings)[i] == "Impermeable") {
+                tempShirt.waterproof = "Si";
+            } else {
+                tempShirt.waterproof = "No";
+            }
+        }
+
+        if(shirt.ratings[Object.keys(shirt.ratings)[i]] > 9) {
+            if(Object.keys(shirt.ratings)[i] == "Horizontal" 
+            || Object.keys(shirt.ratings)[i] == "Vertical" 
+            || Object.keys(shirt.ratings)[i] == "Diagonal" 
+            || Object.keys(shirt.ratings)[i] == "Cuadros" 
+            || Object.keys(shirt.ratings)[i] == "Circulos" 
+            || Object.keys(shirt.ratings)[i] == "Manchas" 
+            || Object.keys(shirt.ratings)[i] == "Ninguno") {
+                tempShirt.pattern = Object.keys(shirt.ratings)[i];
+            }
+        }
+
+        if(shirt.ratings[Object.keys(shirt.ratings)[i]] > 9) {
+            if(Object.keys(shirt.ratings)[i] == "Amarillo" 
+            || Object.keys(shirt.ratings)[i] == "Azul" 
+            || Object.keys(shirt.ratings)[i] == "Rojo") {
+                tempShirt.main_color = Object.keys(shirt.ratings)[i];
+            }
+        }
+
+        if(shirt.ratings[Object.keys(shirt.ratings)[i]] > 4) {
+            if(Object.keys(shirt.ratings)[i] == "Amarillo" 
+            || Object.keys(shirt.ratings)[i] == "Azul" 
+            || Object.keys(shirt.ratings)[i] == "Rojo") {
+                if(tempShirt.main_color != Object.keys(shirt.ratings)[i]){
+                    tempShirt.secondary_color = Object.keys(shirt.ratings)[i];
+                }
+            }
+        }
+    }
+    return tempShirt;
+}
+
 function createShirts(shirtArray) {
     let tempShirtCollection = [];
     shirtArray.forEach(function (elem){
@@ -291,8 +359,8 @@ app.get('/user-selection', function(request, response) {
 app.get('/adidas-experience', function(request, response) {
     users = [];
     shirts = [];
+    alternatives = [];
     let favoriteShirt;
-    let alternatives = [];
     let kUsers = [];
     let kAlternatives = [];
     if(selectedUser != null) {
@@ -320,6 +388,7 @@ app.get('/adidas-experience', function(request, response) {
                 kAlternatives = alternatives.slice(0, kVal1);
             }
 
+            favoriteShirt = createShirt(favoriteShirt);
             // createShirts(kAlternatives);   
             kAlternatives =  createShirts(kAlternatives); 
             
@@ -361,7 +430,70 @@ app.get('/adidas-experience', function(request, response) {
 
 //Recomendación Grupal
 app.get('/group-recommendation', function(request, response) {
-    response.render('group-recommendation');
+
+    users = [];
+    shirts = [];
+    alternatives = [];
+    let favoriteShirt;
+    let kUsers = [];
+    let kAlternatives = [];
+    if(selectedUser != null) {
+        const shirtCollection = database.collection('shirts');
+        const userCollection = database.collection('users');
+        
+        shirtCollection.find({}).toArray(function(err, docs) {
+            if(err) {
+                console.error(err);
+                response.send(err);
+                return;
+            }
+
+            docs.forEach(function(elem) {
+                shirts.push(elem);
+            });
+
+            bordaCount(selectedUser, shirts);
+
+            favoriteShirt = shirts[0];
+            alternatives = shirts.slice(1, shirts.length);
+            if(kVal1 > alternatives.length) {
+                kAlternatives = alternatives.slice(0, alternatives.length);
+            } else {
+                kAlternatives = alternatives.slice(0, kVal1);
+            }
+
+            favoriteShirt = createShirt(favoriteShirt);
+            kAlternatives =  createShirts(kAlternatives); 
+            
+            userCollection.find({}).toArray(function(err, docs2) {
+                if(err) {
+                    console.error(err);
+                    response.send(err);
+                    return;
+                }
+
+                docs2.forEach(function(elem2) {
+                    if(new String(elem2._id).valueOf() != new String(selectedUser._id).valueOf() ) {
+                        users.push(elem2);
+                    }
+                });
+
+                knnSort(selectedUser, users);
+
+                if(kVal1 > users.length) {
+                    kUsers = users.slice(0, users.length);
+                } else {
+                    kUsers = users.slice(0, kVal1);
+                }
+
+                var context = {
+                    users: kUsers,
+                    alternatives: kAlternatives,
+                }
+                response.render('group-recommendation', context);
+            })
+        });
+    }
 });
 
 //Colección
