@@ -1,14 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Home</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css"
+        integrity="sha384-SI27wrMjH3ZZ89r4o+fGIJtnzkAnFs3E4qz9DIYioCQ5l9Rd/7UAa8DHcaL8jkWt" crossorigin="anonymous">
+    <title>Home</title>
+    <link rel="stylesheet" href="/styles/home/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Poppins:400,700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <h1>{{title}}</h1>
+    <main>
+        <nav class="navbar navbar-expand-lg ">
+            <a class="navbar-brand" href="#">
+                <img class="navbar-brand__image" src="https://i.imgur.com/NLxlLbG.png" width="60" height="60" alt="">
+            </a>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/collection"><strong>Colección</strong><span
+                            class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Punto 7</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Pricing</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="container-fluid header">
+            <div class="row header__container">
+                <div class="col-6 header__container__wrap">
+                    <div class="container header__container__wrap__info">
+                        <h1 class="header__container__wrap__info__title">Camisa de la </br> <span>selección.</span></h1>
+                        <p class="container header__container__wrap__info__body">Es momento de que todo un país tenga
+                            una camiseta </br> que nos <strong>identifique.</strong></p>
+                        <a href="/user-selection"><button
+                                class="header__container__wrap__info__button">EMPEZAR</button></a>
+                    </div>
+                </div>
+                <div class="col-6 header__container__image">
+                    <img class="header__container__image__james" width="50%" src="https://i.imgur.com/tg64mMg.png"
+                        alt="">
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/js/bootstrap.min.js"
+            integrity="sha384-3qaqj0lc6sV/qpzrc1N5DC6i1VRn/HyX4qdPaiEFbn54VjQBEU341pvjz7Dv3n6P"
+            crossorigin="anonymous"></script>
 </body>
+</main>
 
 </html>

@@ -1,0 +1,98 @@
+.group__title {
+  text-align: center;
+  font-family: 'Poppins';
+  font-weight: 700;
+  font-size: 40px;
+  margin-top: 80px;
+  margin-bottom: 40px;
+}
+
+.entry__container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.entry__container__info__title {
+  font-family: 'Poppins';
+  font-weight: 700;
+  font-size: 25px;
+  color: black;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.entry__container__info__container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.entry__container__info__container__input {
+  border-radius: 5px;
+  border: black 2px solid;
+  padding: 15px 40px 15px 40px;
+  margin-bottom: 40px;
+}
+
+.group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.group__container__title {
+  font-family: 'Poppins';
+  font-weight: 700;
+  font-size: 25px;
+  margin-bottom: 40px;
+}
+
+.group__container__wrap__person {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border: #DFDFDF 1px solid;
+  text-align: center;
+}
+
+.group__container__wrap__person__info {
+  margin: 15px 0;
+}
+
+.main__container .card__container__t-shirt__wrap {
+  margin-bottom: 40px;
+}
+
+.main__container .card__container__t-shirt__wrap__image {
+  width: 50%;
+  margin: auto;
+}
+
+.main__container .card__container__t-shirt__wrap__info__title {
+  font-family: 'Poppins';
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.main__container .card__container__t-shirt__wrap__info__body {
+  font-family: 'Open Sans';
+  font-size: 13px;
+  margin-bottom: 1px;
+}
+/*# sourceMappingURL=main.css.map */

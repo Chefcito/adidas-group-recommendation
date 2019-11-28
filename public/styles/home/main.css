@@ -1,0 +1,92 @@
+@font-face {
+  font-family: AvantGarde-Bold;
+  src: url(/public/resources/ITC-Avant-Garde-Gothic-Bold.otf);
+}
+
+.main {
+  width: 100vw;
+  height: 100vh;
+}
+
+.navbar {
+  width: 100vw;
+  position: absolute;
+  z-index: 1;
+  padding: 0;
+  margin: 0;
+}
+
+.navbar .navbar-nav .nav-item .nav-link {
+  font-family: 'Open Sans';
+  margin: 0 20px;
+  color: black;
+}
+
+.header {
+  width: 100vw;
+  height: 100vh;
+  background-color: red;
+}
+
+.header__container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.header__container__wrap {
+  background-color: white;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  align-items: center;
+}
+
+.header__container__wrap__info__title {
+  font-family: 'Poppins';
+  font-size: 70px;
+  line-height: 70px;
+  color: black;
+  font-weight: 700;
+}
+
+.header__container__wrap__info__title span {
+  color: #FFE24D;
+}
+
+.header__container__wrap__info__body {
+  font-family: 'Open Sans';
+  font-size: 20px;
+  padding: 0;
+  color: black;
+}
+
+.header__container__wrap__info__button {
+  font-family: 'Open Sans';
+  font-weight: 700;
+  letter-spacing: 5px;
+  border-radius: 50px;
+  border: none;
+  padding: 10px 30px;
+  color: white;
+  background-color: black;
+}
+
+.header__container__image {
+  background-color: black;
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.header__container__image__james {
+  width: 73%;
+}
+/*# sourceMappingURL=main.css.map */

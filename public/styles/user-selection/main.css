@@ -1,0 +1,78 @@
+.main {
+  width: 100vw;
+  height: 100vh;
+}
+
+.navbar {
+  width: 100vw;
+  position: absolute;
+  z-index: 1;
+  padding: 0;
+  margin: 0;
+}
+
+.navbar .navbar-nav .nav-item .nav-link {
+  font-family: 'Open Sans';
+  margin: 0 20px;
+  color: black;
+}
+
+.user-selection {
+  width: 100vw;
+  height: 100vh;
+}
+
+.user-selection__title {
+  font-family: 'Poppins';
+  font-size: 25px;
+  font-weight: 700;
+  color: black;
+}
+
+.user-selection__container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+}
+
+.user-selection__container__wrap__title {
+  font-family: 'Poppins';
+  font-weight: 700;
+  font-size: 40px;
+  color: black;
+  display: block;
+}
+
+.user-selection__container__wrap__body {
+  font-family: 'Open Sans';
+  font-size: 20px;
+  padding: 0;
+  color: black;
+  display: block;
+}
+
+.user-selection__container__wrap__select {
+  padding: 13px 200px 13px 20px;
+  border-radius: 5px;
+  border: black 2px solid;
+}
+
+.user-selection__container__wrap__select__option {
+  padding: 13px 0;
+}
+
+.user-selection__container__wrap__button {
+  border: none;
+  padding: 15px 15px;
+  border-radius: 100px;
+  color: white;
+  background-color: black;
+}
+/*# sourceMappingURL=main.css.map */

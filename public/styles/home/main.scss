@@ -1,0 +1,91 @@
+//@import '/public/styles/variables';
+
+//fonts
+@font-face {
+    font-family: AvantGarde-Bold;
+    src: url(/public/resources/ITC-Avant-Garde-Gothic-Bold.otf);
+}
+
+.main{
+    width: 100vw;
+    height: 100vh;
+}
+
+.navbar{
+    width: 100vw;
+    //justify-content: space-between;
+    position: absolute;
+    z-index: 1;
+    padding: 0;
+    margin: 0;
+
+    .navbar-nav{
+        .nav-item{
+            .nav-link{
+                font-family: 'Open Sans';
+                margin: 0 20px;
+                color: black;
+            }
+        }
+    }
+}
+
+.header{
+    width: 100vw;
+    height: 100vh;
+    background-color: red;
+    &__container{
+        display: flex;
+        &__wrap{
+            background-color: white;
+            align-items: center;
+            display: flex;
+            align-items: center;
+
+            &__info{
+                &__title{
+                    font-family: 'Poppins';
+                    font-size: 70px;
+                    line-height: 70px;
+                    color: black;
+                    font-weight: 700;
+
+                    span{
+                        color: #FFE24D;
+                    }
+                }
+    
+                &__body{
+                    font-family: 'Open Sans';
+                    font-size: 20px;
+                    padding: 0;
+                    color: black;
+                }
+
+                &__button{
+                    font-family: 'Open Sans';
+                    font-weight: 700;
+                    letter-spacing: 5px;
+                    border-radius: 50px;
+                    border: none;
+                    padding: 10px 30px;
+                    color: white;
+                    background-color: black;
+                }
+            }
+        }
+
+        
+
+        &__image{
+            background-color: black;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            &__james{
+                width: 73%;    
+            }
+        }
+
+    }
+}

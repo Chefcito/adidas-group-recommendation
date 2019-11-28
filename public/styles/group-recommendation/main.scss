@@ -1,0 +1,100 @@
+.group__title{
+    text-align: center;
+    font-family: 'Poppins';
+    font-weight: 700;
+    font-size: 40px;
+    margin-top: 80px;
+    margin-bottom: 40px;
+}
+
+.entry__container{
+    display: flex;
+    justify-content: center;
+
+   &__info{
+        &__title{
+            font-family: 'Poppins';
+            font-weight: 700;
+            font-size: 25px;
+            color: black;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        &__container{
+            display: flex;
+            justify-content: center;
+            &__input{
+                border-radius: 5px;
+                border: black 2px solid;
+                padding: 15px 40px 15px 40px;
+                margin-bottom: 40px;
+            }
+        }
+   }
+}
+
+.group{
+    display: flex;
+    justify-content: center;
+
+    &__container{
+
+        &__title{
+            font-family: 'Poppins';
+            font-weight: 700;
+            font-size: 25px;
+            margin-bottom: 40px;
+        }
+
+        &__wrap{
+
+            &__person{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: #DFDFDF 1px solid;
+                text-align: center;
+                
+                &__info{
+                    margin: 15px 0;
+                }
+            }
+        }
+    }
+}
+
+
+.main__container{
+
+    .card__container{
+
+
+        &__t-shirt{
+
+            &__wrap{
+                margin-bottom: 40px;
+
+                &__image{
+                    width: 50%;
+                    margin:auto;
+                }
+
+                &__info{
+
+                    &__title{
+                        font-family: 'Poppins';
+                        font-weight: 700;
+                        font-size: 16px;
+                    }
+
+                    &__body{
+                        font-family: 'Open Sans';
+                        font-size: 13px;
+                        margin-bottom: 1px;
+                    }
+                }
+            }
+        }
+    }
+}

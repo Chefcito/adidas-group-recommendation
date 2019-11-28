@@ -1,0 +1,46 @@
+.main__container{
+    overflow: scroll;
+    overflow-y: hidden;
+    width: 1000px;
+    .card__container{
+        display: flex;
+        flex-wrap: nowrap;;
+
+        &__t-shirt{
+
+            &__wrap{
+                margin-bottom: 40px;
+
+                &__image{
+                    width: 50%;
+                    margin:auto;
+                }
+
+                &__info{
+
+                    &__title{
+                        font-family: 'Poppins';
+                        font-weight: 700;
+                        font-size: 16px;
+                    }
+
+                    &__body{
+                        font-family: 'Open Sans';
+                        font-size: 13px;
+                        margin-bottom: 1px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+.collection__title{
+    font-family: 'Poppins';
+            font-weight: 700;
+            font-size: 25px;
+            color: black;
+            margin-top: 20px;
+            margin-bottom: 10px;
+}

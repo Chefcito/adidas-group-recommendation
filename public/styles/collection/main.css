@@ -1,0 +1,44 @@
+.main__container {
+  overflow: scroll;
+  overflow-y: hidden;
+  width: 1000px;
+}
+
+.main__container .card__container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+}
+
+.main__container .card__container__t-shirt__wrap {
+  margin-bottom: 40px;
+}
+
+.main__container .card__container__t-shirt__wrap__image {
+  width: 50%;
+  margin: auto;
+}
+
+.main__container .card__container__t-shirt__wrap__info__title {
+  font-family: 'Poppins';
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.main__container .card__container__t-shirt__wrap__info__body {
+  font-family: 'Open Sans';
+  font-size: 13px;
+  margin-bottom: 1px;
+}
+
+.collection__title {
+  font-family: 'Poppins';
+  font-weight: 700;
+  font-size: 25px;
+  color: black;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+/*# sourceMappingURL=main.css.map */
