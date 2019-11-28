@@ -12,6 +12,14 @@
 .main__info{
     display: flex;
     justify-content: center;
+
+    &__image {
+        width: 80%;
+
+        &__img {
+            width: 80%;
+        }
+    }
 }
 
 .people__title{

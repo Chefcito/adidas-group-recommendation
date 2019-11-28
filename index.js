@@ -68,6 +68,7 @@ var selectedUser = {
         Rojo: 10,
     }
 };
+var selectedItem;
 
 var kVal1;
 var kVal2;
@@ -250,6 +251,7 @@ function createShirts(shirtArray) {
     let tempShirtCollection = [];
     shirtArray.forEach(function (elem){
         let tempShirt = {};
+        tempShirt.id = elem._id;
         tempShirt.name = elem.name;
         tempShirt.gender = elem.gender;
         tempShirt.img = elem.img;
@@ -526,7 +528,74 @@ app.get('/collection', function(request, response) {
 
 //Item
 app.get('/item', function(request, response) {
-    response.render('item');
+    users = [];
+    shirts = [];
+    let alternatives = [];
+    let kUsers = [];
+    let kAlternatives = [];
+
+    
+    if(selectedItem != null) {
+        const shirtCollection = database.collection('shirts');
+        const userCollection = database.collection('users');
+
+        shirtCollection.find({}).toArray(function(err, docs) {
+            if(err) {
+                console.error(err);
+                response.send(err);
+                return;
+            }
+    
+            docs.forEach(function(elem) {
+                shirts.push(elem);
+                if(new String(elem._id).valueOf() != new String(selectedItem.id).valueOf() ) {
+                    shirts.push(elem);
+                }
+            });
+    
+            knnSort(selectedItem, shirts);
+
+            //console.log(selectedItem);
+            // console.log(alternatives);
+            if(kVal1 > alternatives.length) {
+                kAlternatives = alternatives.slice(0, alternatives.length);
+            } else {
+                kAlternatives = alternatives.slice(0, kVal1);
+            }
+            selectedItem = createShirt(selectedItem);
+            kAlternatives = shirts.slice(1, shirts.length);
+            kAlternatives =  createShirts(kAlternatives); 
+            
+            userCollection.find({}).toArray(function(err, docs2) {
+                if(err) {
+                    console.error(err);
+                    response.send(err);
+                    return;
+                }
+    
+                docs2.forEach(function(elem2) {
+                    users.push(elem2);
+                });
+    
+                bordaCount(selectedUser, users);
+    
+                if(kVal1 > users.length) {
+                    kUsers = users.slice(0, users.length);
+                } else {
+                    kUsers = users.slice(0, kVal1);
+                }
+    
+                var context = {
+                    selectedShirt: selectedItem,
+                    users: kUsers,
+                    adidas_collection: kAlternatives,
+                }
+    
+                response.render('item', context);
+            })
+        });
+    }
+
 });
 //#endregion
 
@@ -556,19 +625,22 @@ app.post('/api/selectUser', function(request, response){
     });
 });
 
-/* app.post('/api/updateAlternatives', function(request, response){
-    let kNumber = request.body.k;
-    let newAlternatives;
-    if(kNumber > shirts.length-1) {
-        newAlternatives = shirts.slice(1, shirts.length)
-    } else {
-        newAlternatives = shirts.slice(1, kNumber+1)
-    }
+app.post('/api/selectItem', function(request, response){
+    let itemId = request.body.id;
+    let mongoUserID = new ObjectId(itemId);;
 
-    var context = {
-        alternatives: newAlternatives,
-    }
-
-    response.render('adidas-experience', context);
-}); */
+    const collection = database.collection('shirts');
+    collection.find({
+        _id: { $eq: mongoUserID},
+    }).toArray(function (err, docs) {
+        if(err) {
+            console.error(err);
+            response.send(err);
+            return;
+        }
+        
+        selectedItem = docs[0];
+        response.send(selectedItem);
+    });
+});
 //#endregion

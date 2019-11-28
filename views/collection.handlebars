@@ -41,10 +41,11 @@
             <div class="row card__container">
 
                 {{#each collection}}
-                    <div class="col-4 card__container__t-shirt">
+                    <div  data-id={{id}} class="col-4 card__container__t-shirt">
                         <div class="card card__container__t-shirt__wrap">
-                            <a class="card-img-top card__container__t-shirt__wrap__image" href="/item"><img
-                                    src={{img}} class="card-img-top" alt="..."></a>
+                            <div class="card-img-top card__container__t-shirt__wrap__image">
+                                <img src={{img}} class="card-img-top" alt="...">
+                            </div>
                             <div class="card-body card__container__t-shirt__wrap__info">
                                 <h4 class="card__container__t-shirt__wrap__info__title">Colores</h4>
                                 <p class="card-text card__container__t-shirt__wrap__info__body"><strong>Principal:
@@ -79,6 +80,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/js/bootstrap.min.js"
         integrity="sha384-3qaqj0lc6sV/qpzrc1N5DC6i1VRn/HyX4qdPaiEFbn54VjQBEU341pvjz7Dv3n6P"
         crossorigin="anonymous"></script>
+    <script src="/scripts/collection.js"></script>
 </body>
 
 </html>
