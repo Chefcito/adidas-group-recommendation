@@ -41,39 +41,41 @@ app.use(bodyParser.urlencoded({
 
 //#region VARIABLES GLOBALES
 var selectedUser = {
-    _id: '5ddc931e8c400c1c08f95cbd',
+    _id: '5ddf39bbb129ececca83ec7d',
     name: 'Calex Rodriguez',
-    gender: 'male',
+    gender: 'Masculino',
     ratings: 
     {
-        material_cotton: 9,
-        material_lycra: 9,
-        material_wool: 5,
-        material_flannel: 5,
-        material_lace: 0,
-        material_linen: 1,
-        material_silk: 2,
-        sleeve_long: 9,
-        sleeve_short: 7,
-        waterproof: 9,
-        stripes_horizontal: 7,
-        stripes_vertical: 6,
-        stripes_diagonal: 3,
-        pattern_square: 0,
-        pattern_circle: 0,
-        pattern_spots: 0,
-        pattern_none: 10,
-        color_yellow: 0,
-        color_blue: 5,
-        color_red: 10,
+        Algodon: 9,
+        Licra: 9,
+        Lana: 5,
+        Franela: 5,
+        Encaje: 0,
+        Lino: 1,
+        Seda: 2,
+        Larga: 9,
+        Corta: 7,
+        Impermeable: 9,
+        Horizontal: 7,
+        Vertical: 6,
+        Diagonal: 3,
+        Cuadros: 0,
+        Circulos: 0,
+        Manchas: 0,
+        Ninguno: 10,
+        Amarillo: 0,
+        Azul: 5,
+        Rojo: 10,
     }
 };
 //#endregion
 
 //#region IMPLEMENTACIÓN DE LOS ALGORITMOS
 var users = [];
+var shirts = [];
 
-// selected es el objeto seleccionado, y neighbors es un array de objetos con los cuales se va a comparar.
+// selected es el objeto seleccionado
+// neighbors es un array de objetos con los cuales se va a comparar el objeto seleccionado.
 function knnSort(selected, neighbors) {
     let selectedRatings = [];
     for(let i = 0; i < Object.keys(selected.ratings).length; i++) {
@@ -123,38 +125,9 @@ function knnSort(selected, neighbors) {
 }
 //#endregion
 
-
-
-
 //#region RUTAS GET
 //Home
 app.get('/', function(request, response) {
-
-    /* CLIENT.connect(function(err) {
-        if(err) {
-            console.error(err);
-            response.send(err);
-            return;
-        } 
-     
-        database = CLIENT.db(DATABASE_NAME);
-        const collection = database.collection('users');
-        collection.find({}).toArray(function (err, docs) {
-            if(err) {
-                console.error(err);
-                response.send(err);
-                return;
-            }
-
-            var context = {
-                title: 'Titulazo',
-                users: docs,
-            }
-            
-            response.render('home', context);
-        });
-    }); */
-    
     const collection = database.collection('users');
     collection.find({}).toArray(function (err, docs) {
         if(err) {
@@ -192,10 +165,13 @@ app.get('/user-selection', function(request, response) {
 
 //Experiencia Adidas
 app.get('/adidas-experience', function(request, response) {
-
+    users = [];
+    tshirts = [];
     if(selectedUser != null) {
-        const collection = database.collection('users');
-        collection.find({}).toArray(function(err, docs) {
+        const shirtCollection = database.collection('shirts');
+        const userCollection = database.collection('users');
+        
+        shirtCollection.find({}).toArray(function(err, docs) {
             if(err) {
                 console.error(err);
                 response.send(err);
@@ -203,19 +179,41 @@ app.get('/adidas-experience', function(request, response) {
             }
 
             docs.forEach(function(elem) {
-                if(elem._id != selectedUser._id ) {
-                    users.push(elem);
-                } 
+                shirts.push(elem);
             });
 
-            knnSort(selectedUser, users);
-            console.log(users);
-    
-            var context = {
-                name: selectedUser.name,
-            }
+            knnSort(selectedUser, shirts);
+            
+            userCollection.find({}).toArray(function(err, docs2) {
+                if(err) {
+                    console.error(err);
+                    response.send(err);
+                    return;
+                }
 
-            response.render('adidas-experience', context);
+                docs2.forEach(function(elem2) {
+                    if(new String(elem2._id).valueOf() != new String(selectedUser._id).valueOf() ) {
+                        users.push(elem2);
+                    }
+                });
+
+                knnSort(selectedUser, users);
+
+                let favoriteShirt = shirts[0];
+                let alternatives = shirts.slice(1, shirts.length);
+
+                // console.log(users[0]);
+                // console.log(favoriteShirt);
+
+                var context = {
+                    selectedUser: selectedUser,
+                    users: users,
+                    favoriteShirt: favoriteShirt,
+                    alternatives: alternatives,
+                }
+                response.render('adidas-experience', context);
+            })
+            
         });
     }
 });
