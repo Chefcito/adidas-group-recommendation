@@ -498,7 +498,28 @@ app.get('/group-recommendation', function(request, response) {
 
 //Colección
 app.get('/collection', function(request, response) {
-    response.render('collection');
+    let adidasCollection = [];
+
+    const shirtCollection = database.collection('shirts');    
+    shirtCollection.find({}).toArray(function(err, docs) {
+        if(err) {
+            console.error(err);
+            response.send(err);
+            return;
+        }
+
+        docs.forEach(function(elem) {
+            adidasCollection.push(elem);
+        });
+
+        adidasCollection = createShirts(adidasCollection);
+
+        var context = {
+            collection: adidasCollection,
+        }
+
+        response.render('collection', context);
+    });
 });
 
 //Item

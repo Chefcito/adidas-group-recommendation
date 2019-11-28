@@ -40,6 +40,30 @@
         <div class="container main__container">
             <div class="row card__container">
 
+                {{#each collection}}
+                    <div class="col-4 card__container__t-shirt">
+                        <div class="card card__container__t-shirt__wrap">
+                            <a class="card-img-top card__container__t-shirt__wrap__image" href="/item"><img
+                                    src="https://i.imgur.com/qvzJoc7.png" class="card-img-top" alt="..."></a>
+                            <div class="card-body card__container__t-shirt__wrap__info">
+                                <h4 class="card__container__t-shirt__wrap__info__title">Colores</h4>
+                                <p class="card-text card__container__t-shirt__wrap__info__body"><strong>Principal:
+                                    </strong>{{main_color}}</p>
+                                <p class="card-text card__container__t-shirt__wrap__info__body"><strong>Secundario:
+                                    </strong>{{secondary_color}}</p>
+                                <hr>
+                                <h4 class="card__container__t-shirt__wrap__info__title">Diseño</h4>
+                                <p class="card-text card__container__t-shirt__wrap__info__body"><strong>Patrón:
+                                    </strong>{{pattern}}</p>
+                                <p class="card-text card__container__t-shirt__wrap__info__body"><strong>Material:
+                                    </strong>{{material}}</p>
+                                <p class="card-text card__container__t-shirt__wrap__info__body"><strong>Manga larga:
+                                    </strong>{{long_sleeve}}</p>
+                            </div>
+                        </div>
+                    </div>
+                {{/each}}
+
                 <div class="col-4 card__container__t-shirt">
                     <div class="card card__container__t-shirt__wrap">
                         <a class="card-img-top card__container__t-shirt__wrap__image" href="/item"><img
