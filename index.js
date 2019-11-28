@@ -182,7 +182,7 @@ function createShirt(shirt) {
     let tempShirt = {};
     tempShirt.name = shirt.name;
     tempShirt.gender = shirt.gender;
-    tempShirt.img = elem.img;
+    tempShirt.img = shirt.img;
 
     for(let i = 0; i < Object.keys(shirt.ratings).length; i++) {
         if(shirt.ratings[Object.keys(shirt.ratings)[i]] > 9) {
