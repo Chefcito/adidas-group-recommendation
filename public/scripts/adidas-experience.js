@@ -1,10 +1,11 @@
 window.addEventListener('load', function(){
-    var kInput = document.querySelector('.entry__container__info__container__input');
-    var kNumber = kInput.value;
-
     var shirtCards = document.querySelectorAll('.card__container__p');
+    
+    /* var kInput = document.querySelector('.entry__container__info__container__input');
+    var kNumber = kInput.value; */
 
-    kInput.addEventListener('input', function(){
+
+    /* kInput.addEventListener('input', function(){
         if(isNaN(kInput.value)) {
             console.log(kInput.value + " no es un número");
         } else {
@@ -14,9 +15,8 @@ window.addEventListener('load', function(){
                     
                 }
             });
-            //shirtCards[kNumber].parentNode.removeChild(shirtCards[kNumber]);
         }
-    });
+    }); */
 
     // var alternativesData = document.querySelector('#alternatives').getAttribute('data-alternatives');
     // console.log(alternativesData);

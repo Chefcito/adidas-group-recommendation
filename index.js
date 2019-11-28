@@ -68,12 +68,15 @@ var selectedUser = {
         Rojo: 10,
     }
 };
+
+var kVal1;
+var kVal2;
+
+var users = [];
+var shirts = [];
 //#endregion
 
 //#region IMPLEMENTACIÓN DE LOS ALGORITMOS
-var users = [];
-var shirts = [];
-
 // selected es el objeto seleccionado
 // neighbors es un array de objetos con los cuales se va a comparar el objeto seleccionado.
 function knnSort(selected, neighbors) {
@@ -123,6 +126,128 @@ function knnSort(selected, neighbors) {
         return b.cosineSimilarity - a.cosineSimilarity;
     });
 }
+
+function bordaCount(selected, neighbors) {
+    let selectedRatings = [];
+    for(let i = 0; i < Object.keys(selected.ratings).length; i++) {
+        selectedRatings[i] = parseFloat(selected.ratings[ Object.keys(selected.ratings)[i] ]);
+    }
+
+    let tempRatings = [];
+    for(let i = 0; i < neighbors.length; i++) {
+
+        for(let j = 0; j < Object.keys(neighbors[i].ratings).length; j++) {
+            tempRatings[j] = parseFloat(neighbors[i].ratings[ Object.keys(neighbors[i].ratings)[j] ]);
+        }
+
+        // 
+        let vectorDotProduct = 0;
+        for(let j = 0; j < selectedRatings.length; j++) {
+            vectorDotProduct += selectedRatings[j] * tempRatings[j];
+        }
+        neighbors[i].vectorDotProduct = vectorDotProduct;
+
+        // 
+        let selectedMag = 0;
+        let innerOperation1 = 0;
+        for(let j = 0; j < selectedRatings.length; j++) {
+            innerOperation1 += Math.pow(selectedRatings[j], 2);
+        }
+        selectedMag = Math.sqrt(innerOperation1);
+        selected.magnitude = selectedMag;
+
+        let neighborMag = 0;
+        let innerOperation2 = 0;
+        for(let j = 0; j < tempRatings.length; j++) {
+            innerOperation2 += Math.pow(tempRatings[j], 2);
+        }
+        neighborMag += Math.sqrt(innerOperation2);
+        neighbors[i].magnitude = neighborMag;
+
+        // 
+        let cosineSimilarity = vectorDotProduct / (selectedMag * neighborMag);
+        neighbors[i].cosineSimilarity = cosineSimilarity.toFixed(4);
+    }
+
+    // Se ordena el array de objetos de mayor a menor distancia coseno 
+    neighbors.sort(function (a, b) {
+        return a.cosineSimilarity - b.cosineSimilarity;
+    });
+}
+//#endregion
+
+//#region FUNCIONES
+function createShirts(shirtArray) {
+    let tempShirtCollection = [];
+    shirtArray.forEach(function (elem){
+        let tempShirt = {};
+        tempShirt.name = elem.name;
+        tempShirt.gender = elem.gender;
+
+        for(let i = 0; i < Object.keys(elem.ratings).length; i++) {
+            if(elem.ratings[Object.keys(elem.ratings)[i]] > 9) {
+                if(Object.keys(elem.ratings)[i] == "Algodon" 
+                || Object.keys(elem.ratings)[i] == "Licra" 
+                || Object.keys(elem.ratings)[i] == "Lana" 
+                || Object.keys(elem.ratings)[i] == "Franela" 
+                || Object.keys(elem.ratings)[i] == "Encaje" 
+                || Object.keys(elem.ratings)[i] == "Lino" 
+                || Object.keys(elem.ratings)[i] == "Seda") {
+                    tempShirt.material = Object.keys(elem.ratings)[i];
+                }
+            }
+
+            if(elem.ratings[Object.keys(elem.ratings)[i]] > 9) {
+                if(Object.keys(elem.ratings)[i] == "Larga") {
+                    tempShirt.long_sleeve = "Si";
+                } else {
+                    tempShirt.long_sleeve = "No";
+                }
+            }
+
+            if(elem.ratings[Object.keys(elem.ratings)[i]] > 9) {
+                if(Object.keys(elem.ratings)[i] == "Impermeable") {
+                    tempShirt.waterproof = "Si";
+                } else {
+                    tempShirt.waterproof = "No";
+                }
+            }
+
+            if(elem.ratings[Object.keys(elem.ratings)[i]] > 9) {
+                if(Object.keys(elem.ratings)[i] == "Horizontal" 
+                || Object.keys(elem.ratings)[i] == "Vertical" 
+                || Object.keys(elem.ratings)[i] == "Diagonal" 
+                || Object.keys(elem.ratings)[i] == "Cuadros" 
+                || Object.keys(elem.ratings)[i] == "Circulos" 
+                || Object.keys(elem.ratings)[i] == "Manchas" 
+                || Object.keys(elem.ratings)[i] == "Ninguno") {
+                    tempShirt.pattern = Object.keys(elem.ratings)[i];
+                }
+            }
+
+            if(elem.ratings[Object.keys(elem.ratings)[i]] > 9) {
+                if(Object.keys(elem.ratings)[i] == "Amarillo" 
+                || Object.keys(elem.ratings)[i] == "Azul" 
+                || Object.keys(elem.ratings)[i] == "Rojo") {
+                    tempShirt.main_color = Object.keys(elem.ratings)[i];
+                }
+            }
+
+            if(elem.ratings[Object.keys(elem.ratings)[i]] > 4) {
+                if(Object.keys(elem.ratings)[i] == "Amarillo" 
+                || Object.keys(elem.ratings)[i] == "Azul" 
+                || Object.keys(elem.ratings)[i] == "Rojo") {
+                    if(tempShirt.main_color != Object.keys(elem.ratings)[i]){
+                        tempShirt.secondary_color = Object.keys(elem.ratings)[i];
+                    }
+                }
+            }
+        }
+        tempShirtCollection.push(tempShirt);
+    });
+    shirtArray = tempShirtCollection.slice();
+    return shirtArray;
+}
 //#endregion
 
 //#region RUTAS GET
@@ -168,6 +293,8 @@ app.get('/adidas-experience', function(request, response) {
     shirts = [];
     let favoriteShirt;
     let alternatives = [];
+    let kUsers = [];
+    let kAlternatives = [];
     if(selectedUser != null) {
         const shirtCollection = database.collection('shirts');
         const userCollection = database.collection('users');
@@ -187,6 +314,14 @@ app.get('/adidas-experience', function(request, response) {
 
             favoriteShirt = shirts[0];
             alternatives = shirts.slice(1, shirts.length);
+            if(kVal1 > alternatives.length) {
+                kAlternatives = alternatives.slice(0, alternatives.length);
+            } else {
+                kAlternatives = alternatives.slice(0, kVal1);
+            }
+
+            // createShirts(kAlternatives);   
+            kAlternatives =  createShirts(kAlternatives); 
             
             userCollection.find({}).toArray(function(err, docs2) {
                 if(err) {
@@ -201,20 +336,25 @@ app.get('/adidas-experience', function(request, response) {
                     }
                 });
 
-                knnSort(selectedUser, users);
+                bordaCount(selectedUser, users);
 
                 // console.log(users[0]);
                 // console.log(favoriteShirt);
 
+                if(kVal1 > users.length) {
+                    kUsers = users.slice(0, users.length);
+                } else {
+                    kUsers = users.slice(0, kVal1);
+                }
+
                 var context = {
                     selectedUser: selectedUser,
-                    users: users,
+                    users: kUsers,
                     favoriteShirt: favoriteShirt,
-                    alternatives: alternatives,
+                    alternatives: kAlternatives,
                 }
                 response.render('adidas-experience', context);
             })
-            
         });
     }
 });
@@ -239,6 +379,11 @@ app.get('/item', function(request, response) {
 // Seleccionar usuario
 app.post('/api/selectUser', function(request, response){
     let userId = request.body.id;
+    if(request.body.k == '') {
+        kVal1 = 3;
+    } else {
+        kVal1 = request.body.k;
+    }
     let mongoUserID = new ObjectId(userId);;
 
     const collection = database.collection('users');
@@ -256,7 +401,7 @@ app.post('/api/selectUser', function(request, response){
     });
 });
 
-app.post('/api/updateAlternatives', function(request, response){
+/* app.post('/api/updateAlternatives', function(request, response){
     let kNumber = request.body.k;
     let newAlternatives;
     if(kNumber > shirts.length-1) {
@@ -270,5 +415,5 @@ app.post('/api/updateAlternatives', function(request, response){
     }
 
     response.render('adidas-experience', context);
-});
+}); */
 //#endregion

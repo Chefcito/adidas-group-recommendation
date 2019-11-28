@@ -71,9 +71,31 @@
         <div class="container main__container">
             <div class="row card__container">
                 {{#each alternatives}}
-                    <p class="row card__container__p">{{name}}</p>
+                    <!-- <p class="row card__container__p">{{name}}</p> -->
+                    <div class="col-4 card__container__t-shirt">
+                        <div class="card card__container__t-shirt__wrap">
+                            <h2>{{name}}</h2>
+                            <img class="card-img-top card__container__t-shirt__wrap__image"
+                                src="https://i.imgur.com/qvzJoc7.png" class="card-img-top" alt="...">
+                            <div class="card-body card__container__t-shirt__wrap__info">
+                                <h4 class="card__container__t-shirt__wrap__info__title">Colores</h4>
+                                <p class="card-text card__container__t-shirt__wrap__info__body"><strong>Principal:
+                                    </strong>{{main_color}}</p>
+                                <p class="card-text card__container__t-shirt__wrap__info__body"><strong>Secundario:
+                                    </strong>{{secondary_color}}</p>
+                                <hr>
+                                <h4 class="card__container__t-shirt__wrap__info__title">Diseño</h4>
+                                <p class="card-text card__container__t-shirt__wrap__info__body"><strong>Patrón:
+                                    </strong>{{pattern}}</p>
+                                <p class="card-text card__container__t-shirt__wrap__info__body"><strong>Tipo de tela:
+                                    </strong>{{material}}</p>
+                                <p class="card-text card__container__t-shirt__wrap__info__body"><strong>Manga larga:
+                                    </strong>{{long_sleeve}}</p>
+                            </div>
+                        </div>
+                    </div>
                 {{/each}}
-                <span id="alternatives" data-alternatives={{alternatives}}></span>
+                <!-- <span id="alternatives" data-alternatives={{alternatives}}></span> -->
 
                 <!--
                 <div class="col-4 card__container__t-shirt">
@@ -152,8 +174,13 @@
         <div class="group__container">
             <h5 class="group__container__title">A estas personas les gusta las recomendaciones</h5>
             <div class="col group__container__wrap">
+                {{#each users}}
+                    <div class="container group__container__wrap__person">
+                        <p class="container group__container__wrap__person__info">{{name}}</p>
+                    </div>
+                {{/each}}
 
-                <div class="container group__container__wrap__person">
+                <!-- <div class="container group__container__wrap__person">
                     <p class="container group__container__wrap__person__info">Andrés David Paredes Solano</p>
                 </div>
 
@@ -163,7 +190,7 @@
 
                 <div class="container group__container__wrap__person">
                     <p class="container group__container__wrap__person__info">Andrés David Paredes Solano</p>
-                </div>
+                </div> -- >
             </div>
         </div>
     </div>

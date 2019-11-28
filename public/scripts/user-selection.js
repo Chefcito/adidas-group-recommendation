@@ -6,7 +6,17 @@ window.addEventListener('load', function(){
         selectedUserId = usersDropdown.value;
         console.log(selectedUserId);
     });
-    
+
+    var kInput = document.querySelector('.entry__container__info__container__input');
+    var kNumber = kInput.value; 
+
+    kInput.addEventListener('input', function(){
+        if(isNaN(kInput.value)) {
+            console.log(kInput.value + " no es un número");
+        } else {
+            kNumber = kInput.value;
+        }
+    });
 
     var startButton = document.querySelector('.user-selection__container__wrap__button');
     startButton.addEventListener('click', function(){
@@ -21,7 +31,7 @@ window.addEventListener('load', function(){
             headers: {
                 'Content-type': 'application/x-www-form-urlencoded'
             },
-            body: `id=${selectedUserId}`,
+            body: `id=${selectedUserId}&k=${kNumber}`,
         }).then(function(response){
             return response.json();
         }).catch(function(err){
