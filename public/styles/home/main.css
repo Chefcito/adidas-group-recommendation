@@ -16,8 +16,17 @@
   margin: 0;
 }
 
+.navbar .navbar-brand {
+  margin: 0 10px;
+}
+
+.navbar .navbar-brand__image {
+  margin: 0 10px;
+}
+
 .navbar .navbar-nav .nav-item .nav-link {
   font-family: 'Open Sans';
+  font-weight: 700;
   margin: 0 20px;
   color: black;
 }
@@ -73,6 +82,16 @@
   padding: 10px 30px;
   color: white;
   background-color: black;
+}
+
+.header__container__wrap__info__button:hover {
+  -webkit-transition: .2s;
+  transition: .2s;
+  color: #FFE24D;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.13);
+          box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.13);
 }
 
 .header__container__image {

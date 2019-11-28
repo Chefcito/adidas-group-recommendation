@@ -4,34 +4,25 @@
 }
 
 .navbar{
-    width: 100vw;
-    //justify-content: space-between;
-    position: absolute;
-    z-index: 1;
-    padding: 0;
-    margin: 0;
-
-    .navbar-nav{
-        .nav-item{
-            .nav-link{
-                font-family: 'Open Sans';
-                margin: 0 20px;
-                color: black;
-            }
-        }
+    .nav-item{
+        font-family: 'Open Sans';
+        font-weight: 700;
+        color: black;
+        margin: 0 15px;
     }
 }
 
 .user-selection{
     width: 100vw;
-    height: 100vh;
+    height: 80vh;
     //background-color: red;
     &__title{
         font-family: 'Poppins';
-        font-size: 25px;
+        font-size: 20px;
         font-weight: 700;
-        color: black;
-        
+        color: rgb(167, 167, 167);
+        margin-top: 20px;
+        margin-bottom: 20px;
     }
 
     &__container{
@@ -59,9 +50,10 @@
             }
 
             &__select{
-                padding: 13px 200px 13px 20px;
+                padding: 13px 10px 13px 10px;
                 border-radius: 5px;
                 border: black 2px solid;
+                cursor: pointer;
 
                 &__option{
                     padding: 13px 0;
@@ -72,10 +64,27 @@
                 border: none;
                 padding: 15px 15px;
                 border-radius: 100px;
+                font-family: 'Poppins';
+                font-weight: 700;
                 color: white;
                 background-color: black;
+                padding: 15px 22px;
+            }
+
+            &__button:hover{
+                transition: .5s;
+                transform: scale(1.1);
             }
         }
     }
+}
 
+.entry__container__info__container{
+    &__input{
+        border-radius: 5px;
+        border: black 2px solid;
+        padding: 13px;
+        margin: 0 5px;
+        margin-bottom: 40px;
+    }
 }
