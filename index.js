@@ -137,7 +137,6 @@ app.get('/', function(request, response) {
         }
 
         var context = {
-            title: 'Titulazo',
             users: docs,
         }
         

@@ -1,5 +1,5 @@
 window.addEventListener('load', function(){
-    var usersDropdown = document.querySelector('.users-dropdown');
+    var usersDropdown = document.querySelector('.user-selection__container__wrap__select');
     var selectedUserId = usersDropdown.value;
 
     usersDropdown.addEventListener('change', function(){
@@ -8,9 +8,11 @@ window.addEventListener('load', function(){
     });
     
 
-    var startButton = document.querySelector('.start-button');
+    var startButton = document.querySelector('.user-selection__container__wrap__button');
     startButton.addEventListener('click', function(){
-        selectUser(selectedUserId);
+        if(selectedUserId != "default"){
+            selectUser(selectedUserId);
+        }
     });
 
     function selectUser(selectedUserId) {

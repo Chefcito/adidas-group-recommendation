@@ -41,17 +41,13 @@
                     <h2 class="user-selection__container__wrap__title">Selecciona tu nombre</h2>
                     <p class="user-selection__container__wrap__body">Queremos darte una experiencia única.</p>
                     <select class="user-selection__container__wrap__select" name="" id="">
-                        <option class="user-selection__container__wrap__select__option" value="value1">Yo soy ...
-                        </option>
-                        <option class="user-selection__container__wrap__select__option" value="value1">Andrés David
-                            Paredes</option>
-                        <option class="user-selection__container__wrap__select__option" value="value1">Andrés David
-                            Paredes</option>
-                        <option class="user-selection__container__wrap__select__option" value="value1">Andrés David
-                            Paredes</option>
+                        <option class="user-selection__container__wrap__select__option" value="default">Yo soy ...</option>
+                        {{#each users}}
+                            <option value={{_id}}>{{name}}</option>
+                        {{/each}}
                     </select>
-                    <a href="/adidas-experience"><button
-                            class="user-selection__container__wrap__button">--></button></a>
+
+                    <button class="user-selection__container__wrap__button">--></button>
                 </div>
             </div>
         </div>
