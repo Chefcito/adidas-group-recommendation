@@ -33,12 +33,19 @@
   margin-bottom: 1px;
 }
 
+.navbar .nav-item {
+  font-family: 'Open Sans';
+  font-weight: 700;
+  color: black;
+  margin: 0 15px;
+}
+
 .collection__title {
   font-family: 'Poppins';
+  font-size: 20px;
   font-weight: 700;
-  font-size: 25px;
-  color: black;
+  color: #a7a7a7;
   margin-top: 20px;
-  margin-bottom: 10px;
+  margin-bottom: 40px;
 }
 /*# sourceMappingURL=main.css.map */
