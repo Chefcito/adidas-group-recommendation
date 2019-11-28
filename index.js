@@ -165,7 +165,9 @@ app.get('/user-selection', function(request, response) {
 //Experiencia Adidas
 app.get('/adidas-experience', function(request, response) {
     users = [];
-    tshirts = [];
+    shirts = [];
+    let favoriteShirt;
+    let alternatives = [];
     if(selectedUser != null) {
         const shirtCollection = database.collection('shirts');
         const userCollection = database.collection('users');
@@ -182,6 +184,9 @@ app.get('/adidas-experience', function(request, response) {
             });
 
             knnSort(selectedUser, shirts);
+
+            favoriteShirt = shirts[0];
+            alternatives = shirts.slice(1, shirts.length);
             
             userCollection.find({}).toArray(function(err, docs2) {
                 if(err) {
@@ -197,9 +202,6 @@ app.get('/adidas-experience', function(request, response) {
                 });
 
                 knnSort(selectedUser, users);
-
-                let favoriteShirt = shirts[0];
-                let alternatives = shirts.slice(1, shirts.length);
 
                 // console.log(users[0]);
                 // console.log(favoriteShirt);
@@ -252,5 +254,21 @@ app.post('/api/selectUser', function(request, response){
         selectedUser = docs[0];
         response.send(selectedUser);
     });
+});
+
+app.post('/api/updateAlternatives', function(request, response){
+    let kNumber = request.body.k;
+    let newAlternatives;
+    if(kNumber > shirts.length-1) {
+        newAlternatives = shirts.slice(1, shirts.length)
+    } else {
+        newAlternatives = shirts.slice(1, kNumber+1)
+    }
+
+    var context = {
+        alternatives: newAlternatives,
+    }
+
+    response.render('adidas-experience', context);
 });
 //#endregion
