@@ -41,6 +41,7 @@ app.use(bodyParser.urlencoded({
 
 //#region VARIABLES GLOBALES
 var selectedUser = {
+    _id: '5ddc931e8c400c1c08f95cbd',
     name: 'Calex Rodriguez',
     gender: 'male',
     ratings: 
@@ -69,7 +70,58 @@ var selectedUser = {
 };
 //#endregion
 
+//#region IMPLEMENTACIÓN DE LOS ALGORITMOS
+var users = [];
 
+// selected es el objeto seleccionado, y neighbors es un array de objetos con los cuales se va a comparar.
+function knnSort(selected, neighbors) {
+    let selectedRatings = [];
+    for(let i = 0; i < Object.keys(selected.ratings).length; i++) {
+        selectedRatings[i] = parseFloat(selected.ratings[ Object.keys(selected.ratings)[i] ]);
+    }
+
+    let tempRatings = [];
+    for(let i = 0; i < neighbors.length; i++) {
+
+        for(let j = 0; j < Object.keys(neighbors[i].ratings).length; j++) {
+            tempRatings[j] = parseFloat(neighbors[i].ratings[ Object.keys(neighbors[i].ratings)[j] ]);
+        }
+
+        // Producto punto vector
+        let vectorDotProduct = 0;
+        for(let j = 0; j < selectedRatings.length; j++) {
+            vectorDotProduct += selectedRatings[j] * tempRatings[j];
+        }
+        neighbors[i].vectorDotProduct = vectorDotProduct;
+
+        // Magnitudes
+        let selectedMag = 0;
+        let innerOperation1 = 0;
+        for(let j = 0; j < selectedRatings.length; j++) {
+            innerOperation1 += Math.pow(selectedRatings[j], 2);
+        }
+        selectedMag = Math.sqrt(innerOperation1);
+        selected.magnitude = selectedMag;
+
+        let neighborMag = 0;
+        let innerOperation2 = 0;
+        for(let j = 0; j < tempRatings.length; j++) {
+            innerOperation2 += Math.pow(tempRatings[j], 2);
+        }
+        neighborMag += Math.sqrt(innerOperation2);
+        neighbors[i].magnitude = neighborMag;
+
+        // Cosine Similarity
+        let cosineSimilarity = vectorDotProduct / (selectedMag * neighborMag);
+        neighbors[i].cosineSimilarity = cosineSimilarity.toFixed(4);
+    }
+
+    // Se ordena el array de objetos de mayor a menor distancia coseno 
+    neighbors.sort(function (a, b) {
+        return b.cosineSimilarity - a.cosineSimilarity;
+    });
+}
+//#endregion
 
 
 
@@ -149,6 +201,15 @@ app.get('/adidas-experience', function(request, response) {
                 response.send(err);
                 return;
             }
+
+            docs.forEach(function(elem) {
+                if(elem._id != selectedUser._id ) {
+                    users.push(elem);
+                } 
+            });
+
+            knnSort(selectedUser, users);
+            console.log(users);
     
             var context = {
                 name: selectedUser.name,
