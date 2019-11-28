@@ -19,13 +19,11 @@
         </a>
         <ul class="navbar-nav">
             <li class="nav-item">
+                <a class="nav-link" href="/">Inicio<span class="sr-only">(current)</span></a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link" href="/collection">Colección<span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Punto 7</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
             </li>
         </ul>
     </nav>
@@ -41,10 +39,6 @@
             <h5 class="people__title">Una opción ideal para este grupo de amigos</h5>
             <div class="group">
                 <div class="group__container">
-                    <div class="entry__container__info__container">
-                        <input class="entry__container__info__container__input" placeholder="N° de recomendaciones" type="text">
-                    </div>
-
                     <div class="col group__container__wrap">
                         {{#each users}}
                             <div class="container group__container__wrap__person">
@@ -60,9 +54,7 @@
     <div class="container entry__container">
         <div class="entry__container__info">
             <h3 class="entry__container__info__title">Productos Similares</h3>
-            <div class="entry__container__info__container">
-                <input class="entry__container__info__container__input" placeholder="N° de recomendaciones" type="text">
-            </div>
+            
         </div>
     </div>
 
